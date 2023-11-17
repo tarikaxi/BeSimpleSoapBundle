@@ -1,0 +1,141 @@
+
+
+entity UserLifray {
+	uuid String
+	userid Long required
+	companyid Long 
+	createdate Instant 
+	modifieddate Instant 
+	defaultuser Long
+	contactid Long 
+	password String
+	passwordencrypted Long
+	passwordreset Long
+	passwordmodifieddate Instant 
+	gracelogincount Long 
+	screenname String
+	emailaddress String
+	openid String
+	portraitid Long 
+	languageid String
+	timezoneid String
+	greeting  String
+	comments String 
+	logindate Instant 
+	loginip String
+	lastlogindate Instant 
+	lastloginip String
+	lastfailedlogindate Instant 
+	failedloginattempts Long 
+	lockout Long
+	lockoutdate Instant 
+	agreedtotermsofuse Long 
+	active Long 
+	boidentifiant Long 
+}
+entity Contact {
+	contactid Long
+    companyid Long
+	userid Long
+	username String
+	createdate Instant
+	modifieddate Instant
+	accountid Long
+	parentcontactid Long
+	firstname String
+	middlename String
+	lastname String
+	prefixid Long
+	suffixid Long
+	male Long
+	birthday Instant
+	smssn String
+	aimsn String
+	facebooksn String
+	icqsn String
+	jabbersn String
+	msnsn String
+	myspacesn String
+	skypesn String
+	twittersn String
+	ymsn String
+	employeestatusid String
+	employeenumber String
+	jobtitle String
+	jobclass String
+	hoursofoperation String
+}
+
+/**
+ * The Efacture entity.
+ */
+entity Efacture {
+	cin String
+	nom String 
+	prenom String
+	ncliMobile String 
+	ndMobile String 
+	ncliFixe String 
+	ndFixe String 
+	ncliAdsl String
+	ndAdsl String 
+	matricule String
+}
+
+
+entity Collaborateur {
+		idCollab Long 
+		refTypecollab Long 
+		refWo Long 
+		refEmploicollab String 
+		noCin String 
+		dateSortie Instant 
+		refFonctioncollab Long 
+		refSite Long 
+		psCollab String 
+		matriculeCollab String 
+		affTelDomCollab Long 
+		bureauCollab String 
+		posteCollab String 
+		etalement1 String 
+		etalement2 String 
+		etalement3 String 
+		etalement4 String 
+		etalement5 String 
+		etalement6 String 
+		etalement7 String 
+		societeCollab String 
+		psi String 
+		flagParticipation String 
+		flParticipationaudit String 
+		idUserLiferay Long 
+		dateUpdate Instant
+}
+
+
+
+relationship ManyToOne {
+	Efacture{matricule} to Collaborateur 
+}
+
+relationship OneToOne {
+	Collaborateur{idUserLiferay} to UserLifray
+}
+
+relationship OneToOne {
+	UserLifray{userid} to Contact 
+}
+
+
+// Set pagination options
+//paginate Efacture, Employee with infinite-scroll
+paginate Efacture with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
